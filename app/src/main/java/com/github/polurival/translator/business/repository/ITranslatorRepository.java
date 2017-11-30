@@ -1,6 +1,6 @@
 package com.github.polurival.translator.business.repository;
 
-import com.github.polurival.translator.business.model.YandexTranslateRequestModel;
+import com.github.polurival.translator.business.model.TranslateModel;
 import com.github.polurival.translator.business.model.YandexTranslateResponseModel;
 
 import io.reactivex.Single;
@@ -11,5 +11,7 @@ import io.reactivex.Single;
 
 public interface ITranslatorRepository {
 
-    Single<YandexTranslateResponseModel> getTranslate(YandexTranslateRequestModel requestModel);
+    Single<YandexTranslateResponseModel> getTranslate(TranslateModel translateModel);
+
+    void saveWord(TranslateModel responseModel);
 }
