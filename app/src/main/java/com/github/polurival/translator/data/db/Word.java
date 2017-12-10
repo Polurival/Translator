@@ -3,6 +3,7 @@ package com.github.polurival.translator.data.db;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import com.github.polurival.translator.business.model.TranslateModel;
 
@@ -13,46 +14,40 @@ import com.github.polurival.translator.business.model.TranslateModel;
 @Entity
 public class Word {
 
-    @PrimaryKey
-    private int id;
-
     @ColumnInfo
+    @NonNull
     private String language;
 
+    @PrimaryKey
     @ColumnInfo
+    @NonNull
     private String word;
 
-    public Word(String language, String word) {
+    public Word(@NonNull String language, @NonNull String word) {
         this.language = language;
         this.word = word;
     }
 
-    public Word(TranslateModel translateModel) {
+    public Word(@NonNull TranslateModel translateModel) {
         this.language = translateModel.getLanguageFrom();
         this.word = translateModel.getText();
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    @NonNull
     public String getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage(@NonNull String language) {
         this.language = language;
     }
 
+    @NonNull
     public String getWord() {
         return word;
     }
 
-    public void setWord(String word) {
+    public void setWord(@NonNull String word) {
         this.word = word;
     }
 }

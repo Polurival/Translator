@@ -16,7 +16,7 @@ import io.reactivex.Flowable;
 @Dao
 public interface WordDao {
 
-    @Query("SELECT * FROM word WHERE language = ':lang'")
+    @Query("SELECT * FROM word WHERE language = :lang")
     Flowable<List<Word>> loadWordsByLanguage(String lang);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

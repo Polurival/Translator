@@ -1,6 +1,9 @@
 package com.github.polurival.translator.presentation.mvp.view;
 
 import com.arellomobile.mvp.MvpView;
+import com.github.polurival.translator.business.model.TranslateModel;
+
+import java.util.List;
 
 /**
  * @author Polurival on 13.11.2017.
@@ -16,5 +19,7 @@ public interface MainView extends MvpView {
 
     void showProgress();
     void hideProgress();
-    void showError();
+    void showError(String error);
+
+    void updateAdapter(List<TranslateModel> words);
 }

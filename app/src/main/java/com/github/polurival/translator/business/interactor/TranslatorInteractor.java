@@ -5,8 +5,11 @@ import com.github.polurival.translator.business.model.TranslateModel;
 import com.github.polurival.translator.business.model.YandexTranslateResponseModel;
 import com.github.polurival.translator.business.repository.ITranslatorRepository;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 /**
@@ -30,7 +33,7 @@ public class TranslatorInteractor {
         translatorRepository.saveWord(translateModel);
     }
 
-    public void loadWords(String languageFrom) {
-
+    public Flowable<List<TranslateModel>> getSavedWords(String languageFrom) {
+        return translatorRepository.getSavedWords(languageFrom);
     }
 }

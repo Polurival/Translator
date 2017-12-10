@@ -9,8 +9,12 @@ import com.github.polurival.translator.data.db.TranslatorDatabase;
 import com.github.polurival.translator.data.db.Word;
 import com.github.polurival.translator.data.network.YandexTranslatorApiService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 /**
@@ -36,8 +40,23 @@ public class TranslatorRepository implements ITranslatorRepository {
     }
 
     @Override
+    public Flowable<List<TranslateModel>> getSavedWords(String languageFrom) {
+        return translatorDatabase.wordDao().loadWordsByLanguage(languageFrom)
+                .flatMap(this::mapToTranslateModel);
+    }
+
+    @Override
     public void saveWord(TranslateModel translateModel) {
         Word word = new Word(translateModel);
         translatorDatabase.wordDao().insertAll(word);
+    }
+
+    private Flowable<List<TranslateModel>> mapToTranslateModel(List<Word> words) {
+        final List<TranslateModel> translateModelWords = new ArrayList<>();
+        for (Word word : words) {
+            final TranslateModel translateModel = new TranslateModel(word.getLanguage(), "", word.getWord());
+            translateModelWords.add(translateModel);
+        }
+        return Flowable.fromArray(translateModelWords);
     }
 }
