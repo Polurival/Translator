@@ -10,6 +10,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.github.polurival.translator.R;
 import com.github.polurival.translator.presentation.mvp.presenter.MainPresenter;
 import com.github.polurival.translator.presentation.mvp.view.MainView;
+import com.github.polurival.translator.presentation.ui.adapter.WordAdapter;
 
 /**
  * @author Polurival on 13.11.2017.
@@ -30,6 +31,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         setContentView(R.layout.activity_main);
 
         wordsForTranslateView = findViewById(R.id.autoCompleteTextView);
+        // TODO: 30.11.2017 посмотреть как подгружать данные в адаптер с помощью rx
+        wordsForTranslateView.setAdapter(new WordAdapter(getApplicationContext()));
         translatedWordsView = findViewById(R.id.textView);
 
         translateButton = findViewById(R.id.button);

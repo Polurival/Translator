@@ -33,8 +33,10 @@ public class MainPresenter extends MvpPresenter<MainView> {
      * Загрузить переводы из кэша или интерактора и засетить в адаптер списка
      */
     public void getTranslate(String languageFrom, String languageTo, String word) {
+        TranslateModel translateModel = new TranslateModel(languageFrom, languageTo, word);
 
-        translatorInteractor.getTranslate(new TranslateModel(languageFrom, languageTo, word))
+        translatorInteractor.getTranslate(translateModel)
+                .doOnSuccess(model -> saveWord(translateModel))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onTranslateLoaded);
@@ -43,8 +45,8 @@ public class MainPresenter extends MvpPresenter<MainView> {
     /**
      * Передать слово запроса на сохранение в интерактор
      */
-    public void saveWord(String languageFrom, String word) {
-
+    public void saveWord(TranslateModel translateModel) {
+        translatorInteractor.saveWord(translateModel);
     }
 
     /**

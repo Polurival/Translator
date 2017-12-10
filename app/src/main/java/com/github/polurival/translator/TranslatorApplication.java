@@ -24,11 +24,11 @@ public class TranslatorApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        initApplicationComponent();
+        applicationComponent = buildComponent();
     }
 
-    private void initApplicationComponent() {
-        applicationComponent = DaggerApplicationComponent.builder()
+    public ApplicationComponent buildComponent() {
+        return DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .dataModule(new DataModule(new ApiClient()))
                 .build();
